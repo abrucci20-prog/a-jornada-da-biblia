@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Jornada da Bíblia</title>
+<style>
+body{margin:0;background:#172b20;color:white;font-family:Arial;text-align:center}
+header{padding:15px;background:#294b32}
+h1{color:#f6d77a}
+main{padding:15px}
+select,button{padding:13px;margin:6px;border:0;border-radius:9px;font-size:16px}
+button{background:#e5b94f;color:#251b08;font-weight:bold}
+#campo{height:300px;background:linear-gradient(#83b9a0 0 65%,#947044 65%);border:4px solid #e5b94f;border-radius:15px;position:relative;overflow:hidden}
+#heroi{position:absolute;bottom:35px;left:45%;font-size:48px}
+#objetivo{position:absolute;top:25px;right:25px;font-size:38px}
+#mensagem{padding:12px;min-height:45px}
+.controles button{width:65px;height:55px;font-size:24px}
+</style>
+</head>
+<body>
+<header>
+<h1>✝ A Jornada da Bíblia</h1>
+<p>Uma aventura pelas histórias das Escrituras</p>
+</header>
+<main>
+<p>Escolha seu personagem:</p>
+<select id="personagem" onchange="trocar()">
+<option>Jesus</option><option>Pedro</option>
+<option>Maria Madalena</option><option>Paulo</option>
+<option>Moisés</option><option>Davi</option>
+<option>Ester</option><option>Noé</option>
+<option>Josué</option><option>Daniel</option>
+<option>Rute</option><option>Elias</option>
+<option>Abraão</option><option>José do Egito</option>
+<option>Débora</option><option>Samuel</option>
+</select>
+<p>Fase 1 — O Jardim do Éden</p>
+<div id="campo">
+<div id="objetivo">🌳</div>
+<div id="heroi">🧍</div>
+</div>
+<div id="mensagem">Encontre a árvore para começar sua jornada!</div>
+<div class="controles">
+<button onclick="mover(-20)">⬅️</button>
+<button onclick="mover(20)">➡️</button>
+<button onclick="pular()">⬆️</button>
+</div>
+<p id="pontos">Missões: 0</p>
+<button onclick="reiniciar()">Recomeçar fase</button>
+</main>
+<script>
+let pos=45,missao=0;
+function trocar(){
+document.getElementById("mensagem").innerText=
+"Você escolheu "+document.getElementById("personagem").value+". Boa aventura!";
+}
+function mover(n){
+pos=Math.max(0,Math.min(90,pos+n/2));
+document.getElementById("heroi").style.left=pos+"%";
+if(pos>75){
+document.getElementById("mensagem").innerText=
+"Você encontrou a árvore! Missão concluída!";
+missao=1;
+document.getElementById("pontos").innerText="Missões: "+missao;
+}
+}
+function pular(){
+document.getElementById("mensagem").innerText=
+"Você está explorando o Jardim do Éden!";
+}
+function reiniciar(){
+pos=45;missao=0;
+document.getElementById("heroi").style.left="45%";
+document.getElementById("pontos").innerText="Missões: 0";
+document.getElementById("mensagem").innerText="Encontre a árvore para começar sua jornada!";
+}
+</script>
+</body>
+</html>
