@@ -102,7 +102,135 @@ let z=(Math.random()-.5)*85;
 if(Math.abs(x)>5||Math.abs(z)>5)tree(x,z);
 }
 
-// Rio
+// ===== MELHORIAS DO JARDIM DO EDEN =====
+
+// Montanhas ao fundo
+const hillMaterial = new THREE.MeshStandardMaterial({
+  color: 0x526f45,
+  roughness: 1
+});
+
+for(let i=0;i<9;i++){
+  const hill = new THREE.Mesh(
+    new THREE.SphereGeometry(1,16,12),
+    hillMaterial
+  );
+  hill.scale.set(
+    9+Math.random()*8,
+    5+Math.random()*5,
+    7
+  );
+  hill.position.set(
+    (i-4)*19,
+    2,
+    -48-Math.random()*8
+  );
+  scene.add(hill);
+}
+
+// Pedras pelo jardim
+const rockMaterial = new THREE.MeshStandardMaterial({
+  color: 0x77796d,
+  roughness: 1
+});
+
+for(let i=0;i<35;i++){
+  const rock = new THREE.Mesh(
+    new THREE.DodecahedronGeometry(
+      .35+Math.random()*.7,0
+    ),
+    rockMaterial
+  );
+  rock.position.set(
+    (Math.random()-.5)*75,
+    .25,
+    (Math.random()-.5)*75
+  );
+  rock.scale.y=.6;
+  rock.rotation.set(
+    Math.random(),Math.random(),Math.random()
+  );
+  scene.add(rock);
+}
+
+// Arbustos
+for(let i=0;i<45;i++){
+  const bush = new THREE.Mesh(
+    new THREE.SphereGeometry(1,10,8),
+    new THREE.MeshStandardMaterial({
+      color: new THREE.Color().setHSL(
+        .27+Math.random()*.06,
+        .55,
+        .25+Math.random()*.12
+      )
+    })
+  );
+  bush.scale.set(
+    .7+Math.random(),
+    .5+Math.random()*.4,
+    .7+Math.random()
+  );
+  bush.position.set(
+    (Math.random()-.5)*75,
+    .45,
+    (Math.random()-.5)*75
+  );
+  scene.add(bush);
+}
+
+// Flores coloridas
+const flowerColors=[0xffd166,0xff8fab,0xffffff,0xbca0dc];
+
+for(let i=0;i<100;i++){
+  const flower = new THREE.Group();
+
+  const stem = new THREE.Mesh(
+    new THREE.CylinderGeometry(.025,.035,.35,6),
+    new THREE.MeshStandardMaterial({color:0x286b32})
+  );
+  stem.position.y=.17;
+  flower.add(stem);
+
+  const petal = new THREE.Mesh(
+    new THREE.SphereGeometry(.12,8,8),
+    new THREE.MeshStandardMaterial({
+      color:flowerColors[i%flowerColors.length]
+    })
+  );
+  petal.position.y=.38;
+  petal.scale.set(1,.65,1);
+  flower.add(petal);
+
+  flower.position.set(
+    (Math.random()-.5)*65,
+    0,
+    (Math.random()-.5)*65
+  );
+  scene.add(flower);
+}
+
+// Caminho de terra pelo jardim
+const pathCurve = new THREE.CatmullRomCurve3([
+  new THREE.Vector3(-5,.045,25),
+  new THREE.Vector3(-3,.045,12),
+  new THREE.Vector3(2,.045,0),
+  new THREE.Vector3(-2,.045,-14),
+  new THREE.Vector3(4,.045,-28),
+  new THREE.Vector3(0,.045,-42)
+]);
+
+const path = new THREE.Mesh(
+  new THREE.TubeGeometry(pathCurve,80,2.1,8,false),
+  new THREE.MeshStandardMaterial({
+    color:0xb69a68,
+    roughness:1
+  })
+);
+scene.add(path);
+
+// ===== FIM DAS MELHORIAS =====
+
+  // Rio
 const river=new THREE.Mesh(
 new THREE.PlaneGeometry(8,90),
 new THREE.MeshStandardMaterial({
