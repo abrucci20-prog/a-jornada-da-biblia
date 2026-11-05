@@ -195,7 +195,7 @@ requestAnimationFrame(animate);
 const dt=Math.min(clock.getDelta(),.04);
 
 let speed=running?8:4;
-let mx=-joyX;
+let mx=joyX;
 let mz=-joyY;
 if(Math.abs(mx)+Math.abs(mz)>.1){
 const direction=new THREE.Vector3(mx,0,mz).normalize();
